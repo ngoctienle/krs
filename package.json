@@ -1,0 +1,28 @@
+{
+  "name": "mono-karasports",
+  "packageManager": "pnpm@8.6.10",
+  "private": true,
+  "scripts": {
+    "postinstall": "husky install",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint -- --fix .",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "type-check": "pnpm lint",
+    "commit": "git cz"
+  },
+  "devDependencies": {
+    "@krs/tsconfig": "workspace:*",
+    "eslint": "^8.48.0",
+    "husky": "^8.0.3",
+    "prettier": "^3.0.3",
+    "turbo": "latest"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}

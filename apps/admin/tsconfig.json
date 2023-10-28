@@ -1,0 +1,6 @@
+{
+  "extends": "@krs/tsconfig/react.json",
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "build", "dist"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

@@ -1,0 +1,4 @@
+{
+  "extends": "@krs/tsconfig/base.json",
+  "include": [".", ".commitlintrc.ts"]
+}
