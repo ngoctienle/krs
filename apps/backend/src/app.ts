@@ -59,3 +59,6 @@ class KRSApplication {
     })
   }
 }
+
+const krsApp: KRSApplication = new KRSApplication()
+krsApp.initialize()

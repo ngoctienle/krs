@@ -5,7 +5,11 @@
   "scripts": {
     "postinstall": "husky install",
     "build": "turbo run build",
+    "build:backend": "turbo run build --filter backend",
+    "build:admin": "turbo run build --filter admin",
     "dev": "turbo run dev",
+    "dev:backend": "turbo run dev --filter backend",
+    "dev:admin": "turbo run dev --filter admin",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint -- --fix .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
