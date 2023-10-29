@@ -1,0 +1,17 @@
+{
+  "extends": "@krs/tsconfig/node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./build",
+    "rootDir": ".",
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
+    "paths": {
+      "@global/*": ["src/shared/globals/*"],
+      "@root/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "build"]
+}

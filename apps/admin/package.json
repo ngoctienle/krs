@@ -18,9 +18,7 @@
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
     "@krs/tsconfig": "workspace:*",
-    "eslint": "^8.45.0",
     "eslint-config-krs": "workspace:*",
-    "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
 }

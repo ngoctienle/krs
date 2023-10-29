@@ -1,0 +1,4 @@
+{
+  "extends": "@krs/tsconfig/node.json",
+  "include": ["**/*.ts"]
+}

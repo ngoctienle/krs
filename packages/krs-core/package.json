@@ -1,0 +1,14 @@
+{
+  "name": "@krs/core",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.ts",
+  "devDependencies": {
+    "@krs/tsconfig": "workspace:*",
+    "@types/lodash": "^4.14.200",
+    "eslint-config-krs": "workspace:*"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
