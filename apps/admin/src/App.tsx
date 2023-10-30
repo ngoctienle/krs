@@ -1,5 +1,12 @@
+import KRSProviders from './components/providers'
+import AppRouter from './components/routes'
+
 function App() {
-  return <>hELLO</>
+  return (
+    <KRSProviders>
+      <AppRouter />
+    </KRSProviders>
+  )
 }
 
 export default App
