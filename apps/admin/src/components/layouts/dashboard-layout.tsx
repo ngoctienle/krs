@@ -38,7 +38,6 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({ children }) => {
 
   useEffect((): (() => void) | void => {
     if (isBrowser) {
-      onResize()
       on(window, 'resize', onResize)
 
       return () => off(window, 'resize', onResize)

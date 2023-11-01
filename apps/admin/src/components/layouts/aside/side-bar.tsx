@@ -14,6 +14,7 @@ const SideBar: React.FC<ISideBarProps> = ({ children, collapsed }) => {
       trigger={null}
       collapsible
       collapsed={collapsed}
+      defaultCollapsed
       collapsedWidth={80}
       breakpoint='md'
       style={{

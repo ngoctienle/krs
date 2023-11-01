@@ -11,11 +11,9 @@ const Drawer: React.FC<IDrawerProps> = ({ children, collapsed, toggle }) => {
     <DrawerAntd
       width={200}
       placement='left'
-      drawerStyle={{ padding: '0px !important' }}
-      contentWrapperStyle={{ padding: '0px !important' }}
       styles={{
         body: {
-          padding: '0px !important'
+          padding: '0 6px'
         }
       }}
       closable={false}

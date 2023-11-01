@@ -84,5 +84,5 @@ const Icons = {
   Setting: Settings,
   LayoutDashboard: LayoutDashboard
 }
-
+export type IconsType = keyof typeof Icons
 export default Icons

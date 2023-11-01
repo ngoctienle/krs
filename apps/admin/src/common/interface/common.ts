@@ -1,3 +1,6 @@
+import { IconsType } from 'src/components/core/icons'
+import { Id } from 'src/locales'
+
 export enum LayoutWidth {
   Desktop = 'desktop',
   Mobile = 'mobile'
@@ -15,3 +18,14 @@ export enum AppLocale {
   EN = 'en_US'
 }
 export type AppLocaleType = (typeof AppLocale)[keyof typeof AppLocale]
+
+interface MenuItem {
+  key: string
+  label: Id
+  icon: IconsType
+  path: string
+  children?: MenuChild[]
+}
+
+export type MenuChild = Omit<MenuItem, 'children' | 'icons'>
+export type MenuList = MenuItem[]

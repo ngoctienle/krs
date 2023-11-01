@@ -8,7 +8,7 @@ export const localeConfig = {
   en_US
 }
 
-type Id = keyof (typeof localeConfig)['en_US']
+export type Id = keyof (typeof localeConfig)['en_US']
 interface Props extends MessageDescriptor {
   id: Id
 }
