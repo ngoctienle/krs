@@ -3,8 +3,8 @@ import 'dayjs/locale/vi'
 import { useEffect, Suspense } from 'react'
 import { theme as antdTheme, Spin } from 'antd'
 import { IntlProvider } from 'react-intl'
-import dayjs from 'dayjs'
 import styled from 'styled-components'
+import dayjs from 'dayjs'
 import enUS from 'antd/es/locale/en_US'
 import viVN from 'antd/es/locale/vi_VN'
 
@@ -13,6 +13,7 @@ import { LayoutTheme, AppLocale } from 'src/common/interface/common'
 import { HistoryRouter, history } from 'src/components/routes/history'
 import { useAppGlobal, AppReducerAction } from 'src/contexts/app-global.context'
 import { LocaleFormatter, localeConfig } from 'src/locales'
+import krsStorage from 'src/utils/local-storage'
 import AntdProvider from './antd-provider'
 import ErrorBoundary from '../core/error-boundary'
 
@@ -44,7 +45,7 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
   useEffect((): (() => void) | void => {
     setThemeApp(theme === LayoutTheme.Dark)
     // If theme is not set in local storage, consider system preference
-    if (!localStorage.getItem('krs-scheme')) {
+    if (!krsStorage.getTheme()) {
       const mql = window.matchMedia('(prefers-color-scheme: dark)')
       setThemeApp(mql.matches)
 

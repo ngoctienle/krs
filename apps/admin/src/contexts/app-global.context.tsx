@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useReducer } from 'react'
 import { AppLocaleType, LayoutTheme, LayoutThemeType } from 'src/common/interface/common'
+import krsStorage from 'src/utils/local-storage'
 
 enum AppReducerAction {
   SET_THEME = 'SET_THEME',
@@ -30,13 +31,16 @@ const appGlobalReducer = (
   switch (action.type) {
     case AppReducerAction.SET_THEME:
       updateDOMForTheme(action.theme)
-      storeThemeInLocalStorage(action.theme)
+      krsStorage.storeTheme(action.theme)
       return { ...state, theme: action.theme }
+
     case AppReducerAction.SET_LOCALE:
-      storeLocaleInLocalStorage(action.locale)
+      krsStorage.storeLocale(action.locale)
       return { ...state, locale: action.locale }
+
     case AppReducerAction.SET_LOADING:
       return { ...state, loading: action.loading }
+
     default:
       return state
   }
@@ -56,21 +60,13 @@ const updateDOMForTheme = (theme: LayoutThemeType) => {
   }
 }
 
-const storeThemeInLocalStorage = (theme: LayoutThemeType) => {
-  localStorage.setItem('krs-scheme', theme)
-}
-
-const storeLocaleInLocalStorage = (locale: AppLocaleType) => {
-  localStorage.setItem('krs-locale', locale)
-}
-
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? LayoutTheme.Dark : LayoutTheme.Light
-const userTheme = localStorage.getItem('krs-scheme') as AppGlobalContextInterface['theme']
+const userTheme = krsStorage.getTheme()
 
 // Initial App Context
 const initAppGlobalContext: AppGlobalContextInterface = {
   theme: userTheme || systemTheme,
-  locale: (localStorage.getItem('krs-locale') || 'en_US') as AppGlobalContextInterface['locale'],
+  locale: krsStorage.getLocale(),
   loading: false
 }
 
