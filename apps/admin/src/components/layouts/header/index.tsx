@@ -22,7 +22,12 @@ const HeaderApp: React.FC<IHeaderAppProps> = ({ collapsed, toggle }) => {
         backgroundColor: token.token.colorBgContainer
       }}>
       <Flex align='center' style={{ height: '100%' }}>
-        <Button type='text' shape='default' icon={!collapsed ? <Icons.Outdent /> : <Icons.Indent />} onClick={toggle} />
+        <Button
+          type='text'
+          shape='default'
+          icon={!collapsed ? <Icons.Outdent /> : <Icons.Indent />}
+          onClick={toggle}
+        />
       </Flex>
     </StyledHeader>
   )

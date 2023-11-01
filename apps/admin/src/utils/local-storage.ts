@@ -30,10 +30,15 @@ class KRSLocalStorage {
     return 'en_US' as AppLocale
   }
 
-  private storageItemToLocalStorage(key: (typeof KeyStorage)[keyof typeof KeyStorage], value: string): void {
+  private storageItemToLocalStorage(
+    key: (typeof KeyStorage)[keyof typeof KeyStorage],
+    value: string
+  ): void {
     localStorage.setItem(key, value)
   }
-  private getItemFromLocalStorage(key: (typeof KeyStorage)[keyof typeof KeyStorage]): string | null {
+  private getItemFromLocalStorage(
+    key: (typeof KeyStorage)[keyof typeof KeyStorage]
+  ): string | null {
     return localStorage.getItem(key)
   }
 }

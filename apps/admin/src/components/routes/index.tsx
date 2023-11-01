@@ -36,7 +36,9 @@ const routeList: RouteObject[] = [
     children: [
       {
         path: '/login',
-        element: <WrapperRouteComponent element={<>Hello</>} titleId='title.login' />
+        element: (
+          <WrapperRouteComponent element={<>Hello</>} titleId='title.login' />
+        )
       }
     ]
   },
@@ -47,7 +49,12 @@ const routeList: RouteObject[] = [
       {
         index: true,
         path: appRoutes.root,
-        element: <WrapperRouteComponent element={<>HelloHome</>} titleId='title.home' />
+        element: (
+          <WrapperRouteComponent
+            element={<>HelloHome</>}
+            titleId='title.home'
+          />
+        )
       },
       {
         path: '*',

@@ -1,4 +1,11 @@
-import { Application, json, urlencoded, Response, Request, NextFunction } from 'express'
+import {
+  Application,
+  json,
+  urlencoded,
+  Response,
+  Request,
+  NextFunction
+} from 'express'
 import { Server } from 'socket.io'
 import http from 'http'
 import hpp from 'hpp'
@@ -69,13 +76,23 @@ export class KRSServer {
         .end()
     })
 
-    app.use((error: IErrorResponse, req: Request, res: Response, next: NextFunction) => {
-      log.error(error)
-      if (error instanceof CustomError) {
-        return res.status(error.statusCode).json(error.serializeErrors()).end()
+    app.use(
+      (
+        error: IErrorResponse,
+        req: Request,
+        res: Response,
+        next: NextFunction
+      ) => {
+        log.error(error)
+        if (error instanceof CustomError) {
+          return res
+            .status(error.statusCode)
+            .json(error.serializeErrors())
+            .end()
+        }
+        next()
       }
-      next()
-    })
+    )
   }
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const socketIO: Server = new Server(httpServer, {

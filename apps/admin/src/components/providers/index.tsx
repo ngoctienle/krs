@@ -37,7 +37,10 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
   const { theme, loading, locale } = state
 
   const setThemeApp = (dark = true) => {
-    dispatch({ type: AppReducerAction.SET_THEME, theme: dark ? LayoutTheme.Dark : LayoutTheme.Light })
+    dispatch({
+      type: AppReducerAction.SET_THEME,
+      theme: dark ? LayoutTheme.Dark : LayoutTheme.Light
+    })
   }
 
   /** Initial theme setup */
@@ -89,16 +92,24 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
         token: {
           colorPrimary: '#13c2c2'
         },
-        algorithm: theme === LayoutTheme.Dark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm
+        algorithm:
+          theme === LayoutTheme.Dark
+            ? antdTheme.darkAlgorithm
+            : antdTheme.defaultAlgorithm
       }}>
-      <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
+      <IntlProvider
+        locale={locale.split('_')[0]}
+        messages={localeConfig[locale]}>
         <ErrorBoundary>
           <HistoryRouter history={history}>
             <Suspense fallback={null}>
               <Spin
                 spinning={loading}
                 style={{
-                  backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.44)' : 'rgba(255, 255, 255, 0.44)'
+                  backgroundColor:
+                    theme === 'dark'
+                      ? 'rgba(0, 0, 0, 0.44)'
+                      : 'rgba(255, 255, 255, 0.44)'
                 }}
                 tip={<LocaleFormatter id='global.tips.loading' />}
               />

@@ -1,9 +1,21 @@
 import type { LucideProps } from 'lucide-react'
-import { Indent, Outdent, LayoutDashboard, Settings, Sun, Moon } from 'lucide-react'
+import {
+  Indent,
+  Outdent,
+  LayoutDashboard,
+  Settings,
+  Sun,
+  Moon
+} from 'lucide-react'
 
 const Icons = {
   AppLogo: (props: LucideProps) => (
-    <svg xmlns='http://www.w3.org/2000/svg' width={116} height={19} viewBox='0 0 116 19' {...props}>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={116}
+      height={19}
+      viewBox='0 0 116 19'
+      {...props}>
       <path
         d='M0.612793 0.26355V15.1333H4.68571V9.70105H6.868C9.08675 9.70105 11.1232 11.7375 11.1232 13.9042V18.4927H15.1909V12.8938C15.1909 10.675 13.9409 8.75313 11.5295 7.90938C13.8993 7.4823 15.2065 4.92501 15.2065 2.63334V0.26355H11.1232V1.64376C11.1232 4.46147 9.66488 6.34688 7.18571 6.34688H4.68571V0.26355H0.612793Z'
         fill='currentColor'

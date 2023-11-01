@@ -10,7 +10,10 @@ interface HistoryRouterProps {
   children: React.ReactNode
 }
 
-export const HistoryRouter: React.FC<HistoryRouterProps> = ({ history, children }) => {
+export const HistoryRouter: React.FC<HistoryRouterProps> = ({
+  history,
+  children
+}) => {
   const [state, setState] = React.useState({
     action: history.action,
     location: history.location
@@ -20,5 +23,8 @@ export const HistoryRouter: React.FC<HistoryRouterProps> = ({ history, children 
     history.listen(setState)
   }, [history])
 
-  return React.createElement(Router, Object.assign({ children, navigator: history }, state))
+  return React.createElement(
+    Router,
+    Object.assign({ children, navigator: history }, state)
+  )
 }

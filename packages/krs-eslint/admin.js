@@ -17,7 +17,10 @@ module.exports = {
     node: true
   },
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true }
+    ],
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-no-target-blank': 'warn',
@@ -31,7 +34,7 @@ module.exports = {
         endOfLine: 'auto',
         useTabs: false,
         singleQuote: true,
-        printWidth: 120,
+        printWidth: 80,
         jsxSingleQuote: true,
         bracketSpacing: true,
         bracketSameLine: true

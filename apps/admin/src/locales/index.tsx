@@ -1,6 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { FC } from 'react'
-import { FormattedMessage, useIntl, type IntlShape, type MessageDescriptor } from 'react-intl'
+import {
+  FormattedMessage,
+  useIntl,
+  type IntlShape,
+  type MessageDescriptor
+} from 'react-intl'
 
 import en_US from './en-US'
 

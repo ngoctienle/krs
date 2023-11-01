@@ -28,11 +28,17 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({ children }) => {
   const onResize = useCallback(() => {
     if (screens.xs || screens.sm || screens.md) {
       dispatch({ type: AppReducerAction.SET_COLLAPSED, collapsed: true })
-      dispatch({ type: AppReducerAction.SET_DEVICE, device: LayoutWidth.Mobile })
+      dispatch({
+        type: AppReducerAction.SET_DEVICE,
+        device: LayoutWidth.Mobile
+      })
     }
 
     if (screens.lg || screens.xl || screens.xxl) {
-      dispatch({ type: AppReducerAction.SET_DEVICE, device: LayoutWidth.Desktop })
+      dispatch({
+        type: AppReducerAction.SET_DEVICE,
+        device: LayoutWidth.Desktop
+      })
     }
   }, [dispatch, screens])
 
@@ -46,7 +52,11 @@ const DashboardLayout: React.FC<IDashboardLayoutProps> = ({ children }) => {
 
   return (
     <BaseLayout>
-      <Aside isMobile={device === LayoutWidth.Mobile} toggle={toggle} collapsed={collapsed} />
+      <Aside
+        isMobile={device === LayoutWidth.Mobile}
+        toggle={toggle}
+        collapsed={collapsed}
+      />
       <Layout>
         <HeaderApp toggle={toggle} collapsed={collapsed} />
         <StyledLayoutContent>

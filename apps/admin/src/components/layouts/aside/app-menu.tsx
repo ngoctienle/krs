@@ -14,7 +14,13 @@ interface IAppMenuProps {
   onChangeSelectedKey: (key: string) => void
 }
 
-const AppMenu: React.FC<IAppMenuProps> = ({ menuList, openKey, onChangeOpenKey, selectedKey, onChangeSelectedKey }) => {
+const AppMenu: React.FC<IAppMenuProps> = ({
+  menuList,
+  openKey,
+  onChangeOpenKey,
+  selectedKey,
+  onChangeSelectedKey
+}) => {
   const navigate = useNavigate()
   const { formatMessage } = useLocale()
   const { state, dispatch } = useAppGlobal()

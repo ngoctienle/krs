@@ -6,7 +6,10 @@ interface IScrollableContainerProps {
   styles?: React.CSSProperties
 }
 
-const ScrollableContainer: React.FC<IScrollableContainerProps> = ({ children, styles }) => {
+const ScrollableContainer: React.FC<IScrollableContainerProps> = ({
+  children,
+  styles
+}) => {
   return (
     <SimpleBar autoHide style={styles}>
       {children}

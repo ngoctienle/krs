@@ -1,6 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useReducer } from 'react'
-import { AppLocaleType, LayoutTheme, LayoutThemeType, LayoutWidthType } from 'src/common/interface/common'
+import {
+  AppLocaleType,
+  LayoutTheme,
+  LayoutThemeType,
+  LayoutWidthType
+} from 'src/common/interface/common'
 import krsStorage from 'src/utils/local-storage'
 import getGlobalState from 'src/utils/get-global-state'
 
@@ -73,7 +78,9 @@ const updateDOMForTheme = (theme: LayoutThemeType) => {
   }
 }
 
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? LayoutTheme.Dark : LayoutTheme.Light
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+  ? LayoutTheme.Dark
+  : LayoutTheme.Light
 const userTheme = krsStorage.getTheme()
 
 // Initial App Context
@@ -85,15 +92,20 @@ const initAppGlobalContext: AppGlobalContextInterface = {
 }
 
 // Create Context
-const AppGlobalStateContext = createContext<AppGlobalContextInterface>(initAppGlobalContext)
-const AppGlobalDispatchContext = createContext<React.Dispatch<AppGlobalReducerInterface> | undefined>(undefined)
+const AppGlobalStateContext =
+  createContext<AppGlobalContextInterface>(initAppGlobalContext)
+const AppGlobalDispatchContext = createContext<
+  React.Dispatch<AppGlobalReducerInterface> | undefined
+>(undefined)
 
 const AppGlobalProvider: React.FC<AppGlobalProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(appGlobalReducer, initAppGlobalContext)
 
   return (
     <AppGlobalStateContext.Provider value={state}>
-      <AppGlobalDispatchContext.Provider value={dispatch}>{children}</AppGlobalDispatchContext.Provider>
+      <AppGlobalDispatchContext.Provider value={dispatch}>
+        {children}
+      </AppGlobalDispatchContext.Provider>
     </AppGlobalStateContext.Provider>
   )
 }

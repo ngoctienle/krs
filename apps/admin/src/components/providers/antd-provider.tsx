@@ -5,7 +5,10 @@ import { GlobalStyle } from 'src/common/config/theme'
 
 interface AntdProviderProps extends ConfigProviderProps {}
 
-const AntdProvider: React.FC<AntdProviderProps> = ({ children, ...restProps }) => {
+const AntdProvider: React.FC<AntdProviderProps> = ({
+  children,
+  ...restProps
+}) => {
   return (
     <ConfigProvider {...restProps}>
       <GlobalStyle />

@@ -8,7 +8,10 @@ interface WrapperRouterProps extends Omit<RouteProps, 'element'> {
   element: ReactElement
 }
 
-const WrapperRouteComponent: FC<WrapperRouterProps> = ({ titleId, element }) => {
+const WrapperRouteComponent: FC<WrapperRouterProps> = ({
+  titleId,
+  element
+}) => {
   const { formatMessage } = useIntl()
 
   if (titleId) {
