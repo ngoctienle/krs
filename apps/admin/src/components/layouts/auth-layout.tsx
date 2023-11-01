@@ -1,11 +1,11 @@
-import { Layout } from 'antd'
+import BaseLayout from './base-layout'
 
 interface IAuthLayoutProps {
   children: React.ReactNode
 }
 
 const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
-  return <Layout>{children}</Layout>
+  return <BaseLayout>{children}</BaseLayout>
 }
 
 export default AuthLayout

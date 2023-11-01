@@ -11,7 +11,6 @@ const SideBar: React.FC<ISideBarProps> = ({ children, collapsed }) => {
   const token = antTheme.useToken()
   return (
     <Sider
-      width={256}
       trigger={null}
       collapsible
       collapsed={collapsed}

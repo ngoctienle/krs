@@ -1,6 +1,7 @@
 import ScrollableContainer from 'src/components/core/scrollable-container'
 import Drawer from './drawer'
 import SideBar from './side-bar'
+import AppLogo from './app-logo'
 
 interface IAsideProps {
   isMobile: boolean
@@ -18,7 +19,10 @@ const Aside: React.FC<IAsideProps> = ({ isMobile, collapsed, toggle }) => {
     <>
       {!isMobile ? (
         <SideBar collapsed={collapsed}>
-          <ScrollableContainer styles={styles}>Aside</ScrollableContainer>
+          <ScrollableContainer styles={styles}>
+            <AppLogo collapsed={collapsed} />
+            Aside
+          </ScrollableContainer>
         </SideBar>
       ) : (
         <Drawer collapsed={collapsed} toggle={toggle}>
