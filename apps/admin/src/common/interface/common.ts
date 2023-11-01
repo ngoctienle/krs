@@ -1,7 +1,6 @@
 export enum LayoutWidth {
   Desktop = 'desktop',
-  Mobile = 'mobile',
-  Tablet = 'tablet'
+  Mobile = 'mobile'
 }
 export type LayoutWidthType = (typeof LayoutWidth)[keyof typeof LayoutWidth]
 

@@ -12,7 +12,7 @@ const WrapperRouteComponent: FC<WrapperRouterProps> = ({ titleId, element }) => 
   const { formatMessage } = useIntl()
 
   if (titleId) {
-    document.title = formatMessage({ id: titleId })
+    document.title = `KRS Admin | ${formatMessage({ id: titleId })}`
   }
 
   return element

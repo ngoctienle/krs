@@ -1,12 +1,12 @@
 import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
 
-interface IScollableContainerProps {
+interface IScrollableContainerProps {
   children: React.ReactNode
   styles?: React.CSSProperties
 }
 
-const ScollableContainer: React.FC<IScollableContainerProps> = ({ children, styles }) => {
+const ScrollableContainer: React.FC<IScrollableContainerProps> = ({ children, styles }) => {
   return (
     <SimpleBar autoHide style={styles}>
       {children}
@@ -14,4 +14,4 @@ const ScollableContainer: React.FC<IScollableContainerProps> = ({ children, styl
   )
 }
 
-export default ScollableContainer
+export default ScrollableContainer

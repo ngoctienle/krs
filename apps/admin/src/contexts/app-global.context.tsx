@@ -1,18 +1,23 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useReducer } from 'react'
-import { AppLocaleType, LayoutTheme, LayoutThemeType } from 'src/common/interface/common'
+import { AppLocaleType, LayoutTheme, LayoutThemeType, LayoutWidthType } from 'src/common/interface/common'
 import krsStorage from 'src/utils/local-storage'
+import getGlobalState from 'src/utils/get-global-state'
 
 enum AppReducerAction {
   SET_THEME = 'SET_THEME',
   SET_LOCALE = 'SET_LOCALE',
-  SET_LOADING = 'SET_LOADING'
+  SET_LOADING = 'SET_LOADING',
+  SET_DEVICE = 'SET_DEVICE',
+  SET_COLLAPSED = 'SET_COLLAPSED'
 }
 // Global Context Definition
 interface AppGlobalContextInterface {
+  device: LayoutWidthType
   theme: LayoutThemeType
   locale: AppLocaleType
   loading: boolean
+  collapsed: boolean
 }
 interface AppGlobalProviderProps {
   children: React.ReactNode
@@ -22,6 +27,8 @@ type AppGlobalReducerInterface =
   | { type: AppReducerAction.SET_THEME; theme: LayoutThemeType }
   | { type: AppReducerAction.SET_LOCALE; locale: AppLocaleType }
   | { type: AppReducerAction.SET_LOADING; loading: boolean }
+  | { type: AppReducerAction.SET_DEVICE; device: LayoutWidthType }
+  | { type: AppReducerAction.SET_COLLAPSED; collapsed: boolean }
 
 // Create Reducer
 const appGlobalReducer = (
@@ -40,6 +47,12 @@ const appGlobalReducer = (
 
     case AppReducerAction.SET_LOADING:
       return { ...state, loading: action.loading }
+
+    case AppReducerAction.SET_DEVICE:
+      return { ...state, device: action.device }
+
+    case AppReducerAction.SET_COLLAPSED:
+      return { ...state, collapsed: action.collapsed }
 
     default:
       return state
@@ -65,6 +78,7 @@ const userTheme = krsStorage.getTheme()
 
 // Initial App Context
 const initAppGlobalContext: AppGlobalContextInterface = {
+  ...getGlobalState(),
   theme: userTheme || systemTheme,
   locale: krsStorage.getLocale(),
   loading: false

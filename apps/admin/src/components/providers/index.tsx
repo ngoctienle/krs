@@ -1,14 +1,13 @@
-/* eslint-disable import/no-named-as-default */
 import 'dayjs/locale/vi'
 import { useEffect, Suspense } from 'react'
 import { theme as antdTheme, Spin } from 'antd'
 import { IntlProvider } from 'react-intl'
-import styled from 'styled-components'
+/* import styled from 'styled-components' */
 import dayjs from 'dayjs'
 import enUS from 'antd/es/locale/en_US'
 import viVN from 'antd/es/locale/vi_VN'
 
-import { off, on } from 'src/utils/ misc'
+import { off, on } from 'src/utils/misc'
 import { LayoutTheme, AppLocale } from 'src/common/interface/common'
 import { HistoryRouter, history } from 'src/components/routes/history'
 import { useAppGlobal, AppReducerAction } from 'src/contexts/app-global.context'
@@ -17,7 +16,7 @@ import krsStorage from 'src/utils/local-storage'
 import AntdProvider from './antd-provider'
 import ErrorBoundary from '../core/error-boundary'
 
-const StyledSpin = styled(Spin)`
+/* const StyledSpin = styled(Spin)`
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +27,7 @@ const StyledSpin = styled(Spin)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+` */
 interface IKRSProvidersProps {
   children: React.ReactNode
 }
@@ -96,7 +95,7 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
         <ErrorBoundary>
           <HistoryRouter history={history}>
             <Suspense fallback={null}>
-              <StyledSpin
+              <Spin
                 spinning={loading}
                 style={{
                   backgroundColor: theme === 'dark' ? 'rgba(0, 0, 0, 0.44)' : 'rgba(255, 255, 255, 0.44)'
