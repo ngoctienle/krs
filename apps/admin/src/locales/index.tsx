@@ -28,6 +28,7 @@ type UseLocaleReturn = Omit<IntlShape, 'formatMessage'> & {
 export const useLocale = (): UseLocaleReturn => {
   const { formatMessage: _formatMessage, ...rest } = useIntl()
   const formatMessage: FormatMessageProps = _formatMessage
+
   return {
     ...rest,
     formatMessage

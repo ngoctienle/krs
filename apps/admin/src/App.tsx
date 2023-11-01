@@ -1,11 +1,14 @@
-import KRSProviders from './components/providers'
-import AppRouter from './components/routes'
+import { AppGlobalProvider } from 'src/contexts/app-global.context'
+import KRSProviders from 'src/components/providers'
+import AppRouter from 'src/components/routes'
 
 function App() {
   return (
-    <KRSProviders>
-      <AppRouter />
-    </KRSProviders>
+    <AppGlobalProvider>
+      <KRSProviders>
+        <AppRouter />
+      </KRSProviders>
+    </AppGlobalProvider>
   )
 }
 
