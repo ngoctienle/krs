@@ -28,7 +28,7 @@ const AppMenu: React.FC<IAppMenuProps> = ({
 
   const getIcons = (icon: IconsType) => {
     const Icon = Icons[icon]
-    return <Icon />
+    return <Icon size={16} />
   }
 
   const onMenuClick = (path: string) => {
