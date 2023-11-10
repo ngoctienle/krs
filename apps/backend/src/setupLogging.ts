@@ -11,7 +11,7 @@ const transport: DailyRotateFile = new DailyRotateFile({
 
 const logger = winston.createLogger({
     format: winston.format.combine(
-        winston.format.label({ label: 'Demo anonystick:' }),
+        winston.format.label({ label: 'Demo:' }),
         winston.format.timestamp(),
         winston.format.prettyPrint(),
       ),
