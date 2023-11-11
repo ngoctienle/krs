@@ -22,7 +22,7 @@ class KRSLocalStorage {
   storeLocale(locale: AppLocale): void {
     this.storageItemToLocalStorage(KeyStorage.LOCALE, locale)
   }
-  public getLocale(): AppLocale {
+  getLocale(): AppLocale {
     const locale = this.getItemFromLocalStorage(KeyStorage.LOCALE)
     if (Object.values(AppLocale).includes(locale as AppLocale)) {
       return locale as AppLocale

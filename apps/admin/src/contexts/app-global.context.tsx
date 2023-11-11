@@ -7,7 +7,7 @@ import {
   LayoutWidthType
 } from 'src/common/interface/common'
 import krsStorage from 'src/utils/local-storage'
-import getGlobalState from 'src/utils/get-global-state'
+import krsHelper from 'src/utils/helpers'
 
 enum AppReducerAction {
   SET_THEME = 'SET_THEME',
@@ -85,7 +85,7 @@ const userTheme = krsStorage.getTheme()
 
 // Initial App Context
 const initAppGlobalContext: AppGlobalContextInterface = {
-  ...getGlobalState(),
+  ...krsHelper.getGlobalState(),
   theme: userTheme || systemTheme,
   locale: krsStorage.getLocale(),
   loading: false

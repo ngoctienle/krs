@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
+import { appSetting } from 'src/common/config/settings'
 import ScrollableContainer from 'src/components/core/scrollable-container'
+import krsHelper from 'src/utils/helpers'
 import Drawer from './drawer'
 import SideBar from './side-bar'
 import AppLogo from './app-logo'
 import AppMenu from './app-menu'
-import { useEffect, useState } from 'react'
-import { MenuChild, MenuList } from 'src/common/interface/common'
-import { useLocation } from 'react-router-dom'
-import { appSetting } from 'src/common/config/settings'
 
 interface IAsideProps {
   isMobile: boolean
@@ -23,9 +24,8 @@ const Aside: React.FC<IAsideProps> = ({ isMobile, collapsed, toggle }) => {
   const location = useLocation()
   const [openKey, setOpenkey] = useState<string>()
   const [selectedKey, setSelectedKey] = useState<string>(location.pathname)
-  const [menuList, setMenuList] = useState<MenuList>([])
 
-  const initMenuListAll = (menu: MenuList) => {
+  /* const initMenuListAll = (menu: MenuList) => {
     const MenuListAll: MenuChild[] = []
 
     menu.forEach((m) => {
@@ -39,13 +39,14 @@ const Aside: React.FC<IAsideProps> = ({ isMobile, collapsed, toggle }) => {
     })
 
     return MenuListAll
-  }
-
-  console.log(initMenuListAll(appSetting.menu))
+  } */
 
   useEffect(() => {
-    setMenuList(appSetting.menu)
-  }, [])
+    const code = krsHelper.getMenuCode(location.pathname)
+
+    setOpenkey(code)
+    setSelectedKey(location.pathname)
+  }, [location.pathname])
 
   return (
     <>
@@ -54,7 +55,7 @@ const Aside: React.FC<IAsideProps> = ({ isMobile, collapsed, toggle }) => {
           <ScrollableContainer styles={styles}>
             <AppLogo collapsed={collapsed} />
             <AppMenu
-              menuList={menuList}
+              menuList={appSetting.menu}
               openKey={openKey}
               onChangeOpenKey={(k) => setOpenkey(k)}
               selectedKey={selectedKey}
@@ -67,7 +68,7 @@ const Aside: React.FC<IAsideProps> = ({ isMobile, collapsed, toggle }) => {
           <ScrollableContainer styles={styles}>
             <AppLogo collapsed={false} />
             <AppMenu
-              menuList={menuList}
+              menuList={appSetting.menu}
               openKey={openKey}
               onChangeOpenKey={(k) => setOpenkey(k)}
               selectedKey={selectedKey}
