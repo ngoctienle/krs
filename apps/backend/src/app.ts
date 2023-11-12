@@ -1,11 +1,12 @@
 import express, { type Express } from 'express'
 import Logger from 'bunyan'
 
-import { enviroment } from '@root/enviroment'
+import { environment } from '@root/environment'
 import { KRSServer } from '@root/setupServer'
 import dbConnect from '@root/setupDatabase'
+import s3Config from '@root/setupStorage'
 
-const log: Logger = enviroment.createLogger('app')
+const log: Logger = environment.createLogger('app')
 
 class KRSApplication {
   initialize(): void {
@@ -20,7 +21,8 @@ class KRSApplication {
   }
 
   private loadConfig(): void {
-    enviroment.validateEnvConfig()
+    environment.validateEnvConfig()
+    s3Config()
   }
   private static shutDownProperly(exitCode: number): void {
     Promise.resolve()

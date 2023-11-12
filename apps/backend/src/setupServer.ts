@@ -16,12 +16,12 @@ import HTTP_STATUS from 'http-status-codes'
 import compression from 'compression'
 import cookieSession from 'cookie-session'
 
-import { CustomError, IErrorResponse } from '@global/helpers/error-handler'
-import { enviroment } from '@root/enviroment'
+import { KRSError, KRSResponse } from '@global/helpers/response'
+import { environment } from '@root/environment'
 import appRoutes from '@root/setupRoutes'
 
-const SERVER_PORT = enviroment.PORT
-const log: Logger = enviroment.createLogger('server')
+const SERVER_PORT = environment.PORT
+const log: Logger = environment.createLogger('server')
 
 export class KRSServer {
   private app: Application
@@ -43,9 +43,9 @@ export class KRSServer {
     app.use(
       cookieSession({
         name: 'session',
-        keys: [enviroment.SECRET_KEY_ONE!, enviroment.SECRET_KEY_TWO!],
+        keys: [environment.SECRET_KEY_ONE!, environment.SECRET_KEY_TWO!],
         maxAge: 24 * 7 * 3600_000, // 7 days
-        secure: enviroment.NODE_ENV !== 'development',
+        secure: environment.NODE_ENV !== 'development',
         sameSite: 'none' // comment this line when running the server locally
       })
     )
@@ -53,7 +53,7 @@ export class KRSServer {
     app.use(helmet())
     app.use(
       cors({
-        origin: enviroment.CLIENT_URL,
+        origin: environment.CLIENT_URL,
         credentials: true,
         optionsSuccessStatus: 200,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
@@ -70,25 +70,39 @@ export class KRSServer {
   }
   private globalErrorHandler(app: Application): void {
     app.all('*', async (req: Request, res: Response) => {
-      res
-        .status(HTTP_STATUS.NOT_FOUND)
-        .json({ message: `${req.originalUrl} not found!` })
-        .end()
+      KRSResponse.error(
+        req,
+        res,
+        {
+          error_code: ['NOT_FOUND'],
+          status_code: HTTP_STATUS.NOT_FOUND,
+          message: `${req.originalUrl} not found!`
+        },
+        HTTP_STATUS.NOT_FOUND
+      )
     })
 
     app.use(
-      (
-        error: IErrorResponse,
-        req: Request,
-        res: Response,
-        next: NextFunction
-      ) => {
+      (error: KRSError, req: Request, res: Response, next: NextFunction) => {
         log.error(error)
-        if (error instanceof CustomError) {
-          return res
-            .status(error.statusCode)
-            .json(error.serializeErrors())
-            .end()
+        if (error instanceof KRSError) {
+          KRSResponse.error(
+            req,
+            res,
+            error.serializeErrors(),
+            error.status_code
+          )
+        } else {
+          KRSResponse.error(
+            req,
+            res,
+            {
+              error_code: ['INTERNAL_SERVER_ERROR'],
+              status_code: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+              message: 'Internal Server Error'
+            },
+            HTTP_STATUS.INTERNAL_SERVER_ERROR
+          )
         }
         next()
       }
@@ -97,7 +111,7 @@ export class KRSServer {
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const socketIO: Server = new Server(httpServer, {
       cors: {
-        origin: enviroment.CLIENT_URL,
+        origin: environment.CLIENT_URL,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true
       }
@@ -116,7 +130,7 @@ export class KRSServer {
     })
   }
   private async startServer(app: Application): Promise<void> {
-    if (!enviroment.JWT_TOKEN) {
+    if (!environment.JWT_TOKEN) {
       throw new Error('JWT_TOKEN is not defined')
     }
 

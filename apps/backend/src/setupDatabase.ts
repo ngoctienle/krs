@@ -1,14 +1,14 @@
 import mongoose from 'mongoose'
 import Logger from 'bunyan'
 
-import { enviroment } from '@root/enviroment'
+import { environment } from '@root/environment'
 
-const log: Logger = enviroment.createLogger('setupDatabase')
+const log: Logger = environment.createLogger('setupDatabase')
 
 export default () => {
   const connect = () => {
     mongoose
-      .connect(`${enviroment.DATABASE_URL}`)
+      .connect(`${environment.DATABASE_URL}`)
       .then(() => {
         log.info('Successfully connected to database')
       })
