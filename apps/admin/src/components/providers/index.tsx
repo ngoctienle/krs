@@ -60,6 +60,7 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
     <AntdProvider
       locale={getAntdLocale()}
       componentSize='middle'
+      prefixCls='krs'
       theme={{
         token: {
           colorPrimary: '#13c2c2'
