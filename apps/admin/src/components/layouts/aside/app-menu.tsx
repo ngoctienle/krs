@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
 import { LayoutWidth, MenuList } from 'src/common/interface/common'
-import { AppReducerAction, useAppGlobal } from 'src/contexts/app-global.context'
 import Icons, { IconsType } from 'src/components/core/icons'
 import { useLocale } from 'src/locales'
+import useKrsStore from 'src/hooks/use-krs-store'
 
 interface IAppMenuProps {
   menuList: MenuList
@@ -23,8 +23,11 @@ const AppMenu: React.FC<IAppMenuProps> = ({
 }) => {
   const navigate = useNavigate()
   const { formatMessage } = useLocale()
-  const { state, dispatch } = useAppGlobal()
-  const { device } = state
+  const { persist, setPersist } = useKrsStore((state) => ({
+    persist: state.persist,
+    setPersist: state.setPersist
+  }))
+  const { device } = persist
 
   const getIcons = (icon: IconsType) => {
     const Icon = Icons[icon]
@@ -36,7 +39,7 @@ const AppMenu: React.FC<IAppMenuProps> = ({
     navigate(path)
 
     if (device !== LayoutWidth.Desktop) {
-      dispatch({ type: AppReducerAction.SET_COLLAPSED, collapsed: true })
+      setPersist({ collapsed: true })
     }
   }
 

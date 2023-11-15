@@ -9,10 +9,10 @@ import {
 } from 'antd'
 import styled from 'styled-components'
 
-import { AppReducerAction, useAppGlobal } from 'src/contexts/app-global.context'
 import { useLocale } from 'src/locales'
 import Icons from 'src/components/core/icons'
 import { AppLocale, LayoutTheme } from 'src/common/interface/common'
+import useKrsStore from 'src/hooks/use-krs-store'
 
 interface IHeaderAppProps {
   collapsed: boolean
@@ -27,17 +27,20 @@ const StyledHeader = styled(Header)`
 const HeaderApp: React.FC<IHeaderAppProps> = ({ collapsed, toggle }) => {
   const token = antTheme.useToken()
   const { formatMessage } = useLocale()
-  const { state, dispatch } = useAppGlobal()
-  const { theme, locale } = state
+  const { persist, setPersist } = useKrsStore((state) => ({
+    persist: state.persist,
+    setPersist: state.setPersist
+  }))
+  const { theme, app_language } = persist
 
   const onToggleTheme = (): void => {
     const newTheme =
       theme === LayoutTheme.Dark ? LayoutTheme.Light : LayoutTheme.Dark
-    dispatch({ type: AppReducerAction.SET_THEME, theme: newTheme })
+    setPersist({ theme: newTheme })
   }
 
   const onToggleLng = ({ key }): void => {
-    dispatch({ type: AppReducerAction.SET_LOCALE, locale: key })
+    setPersist({ app_language: key })
   }
   return (
     <StyledHeader
@@ -79,13 +82,13 @@ const HeaderApp: React.FC<IHeaderAppProps> = ({ collapsed, toggle }) => {
                 {
                   key: 'en_US',
                   icon: <Icons.ENUS size={20} />,
-                  disabled: locale === AppLocale.EN,
+                  disabled: app_language === AppLocale.EN,
                   label: formatMessage({ id: 'global.language.en' })
                 },
                 {
                   key: 'vi_VN',
                   icon: <Icons.VIVN size={16} />,
-                  disabled: locale === AppLocale.VI,
+                  disabled: app_language === AppLocale.VI,
                   label: formatMessage({ id: 'global.language.vi' })
                 }
               ]

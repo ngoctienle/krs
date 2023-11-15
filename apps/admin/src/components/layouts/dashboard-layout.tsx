@@ -2,8 +2,8 @@ import { useCallback, useEffect } from 'react'
 import { Layout, Grid } from 'antd'
 
 import { LayoutWidth } from 'src/common/interface/common'
-import { AppReducerAction, useAppGlobal } from 'src/contexts/app-global.context'
 import { isBrowser, off, on } from 'src/utils/misc'
+import useKrsStore from 'src/hooks/use-krs-store'
 
 import { StyledContainer, StyledLayoutContent } from './styles'
 import BaseLayout from './base-layout'
@@ -18,29 +18,25 @@ const { useBreakpoint } = Grid
 
 const DashboardLayout: React.FC<IDashboardLayoutProps> = ({ children }) => {
   const screens = useBreakpoint()
-  const { state, dispatch } = useAppGlobal()
-  const { device, collapsed } = state
+  const { persist, setPersist } = useKrsStore((state) => ({
+    persist: state.persist,
+    setPersist: state.setPersist
+  }))
+  const { device, collapsed } = persist
 
   const toggle = () => {
-    dispatch({ type: AppReducerAction.SET_COLLAPSED, collapsed: !collapsed })
+    setPersist({ collapsed: !collapsed })
   }
 
   const onResize = useCallback(() => {
     if (screens.xs || screens.sm || screens.md) {
-      dispatch({ type: AppReducerAction.SET_COLLAPSED, collapsed: true })
-      dispatch({
-        type: AppReducerAction.SET_DEVICE,
-        device: LayoutWidth.Mobile
-      })
+      setPersist({ collapsed: true, device: LayoutWidth.Mobile })
     }
 
     if (screens.lg || screens.xl || screens.xxl) {
-      dispatch({
-        type: AppReducerAction.SET_DEVICE,
-        device: LayoutWidth.Desktop
-      })
+      setPersist({ device: LayoutWidth.Desktop })
     }
-  }, [dispatch, screens])
+  }, [screens, setPersist])
 
   useEffect((): (() => void) | void => {
     if (isBrowser) {
