@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { appSetting } from 'src/common/config/settings'
-import ScrollableContainer from 'src/components/core/scrollable-container'
+import { ScrollableContainer } from 'src/components/core'
 import krsHelper from 'src/utils/helpers'
 import Drawer from './drawer'
 import SideBar from './side-bar'

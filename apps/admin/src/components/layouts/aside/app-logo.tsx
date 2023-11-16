@@ -1,5 +1,5 @@
 import { Flex, theme as antTheme } from 'antd'
-import Icons from 'src/components/core/icons'
+import { Icons } from 'src/components/core'
 
 interface IAppLogoProps {
   collapsed: boolean

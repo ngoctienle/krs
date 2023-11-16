@@ -10,8 +10,8 @@ import {
 import styled from 'styled-components'
 
 import { useLocale } from 'src/locales'
-import Icons from 'src/components/core/icons'
 import { AppLocale, LayoutTheme } from 'src/common/interface/common'
+import { Icons } from 'src/components/core'
 import useKrsStore from 'src/hooks/use-krs-store'
 
 interface IHeaderAppProps {

@@ -8,9 +8,11 @@ import {
 } from 'react-intl'
 
 import en_US from './en-US'
+import vi_VN from './vi-VN'
 
 export const localeConfig = {
-  en_US
+  en_US,
+  vi_VN
 }
 
 export type Id = keyof (typeof localeConfig)['en_US']

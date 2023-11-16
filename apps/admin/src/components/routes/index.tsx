@@ -52,7 +52,7 @@ const routeList: RouteObject[] = [
         element: (
           <WrapperRouteComponent
             element={<>HelloHome</>}
-            titleId='title.home'
+            titleId='documents.title.home'
           />
         )
       },

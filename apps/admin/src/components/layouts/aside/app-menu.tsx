@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
 import { LayoutWidth, MenuList } from 'src/common/interface/common'
-import Icons, { IconsType } from 'src/components/core/icons'
+import { type IconsType, Icons } from 'src/components/core'
+import { useKrsStore } from 'src/hooks'
 import { useLocale } from 'src/locales'
-import useKrsStore from 'src/hooks/use-krs-store'
 
 interface IAppMenuProps {
   menuList: MenuList

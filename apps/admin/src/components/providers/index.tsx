@@ -1,19 +1,18 @@
 import 'dayjs/locale/vi'
-import { useEffect, Suspense } from 'react'
-import { theme as antdTheme } from 'antd'
+import { useEffect } from 'react'
 import { IntlProvider } from 'react-intl'
+import { theme as antdTheme } from 'antd'
 /* import styled from 'styled-components' */
 import dayjs from 'dayjs'
 import enUS from 'antd/es/locale/en_US'
 import viVN from 'antd/es/locale/vi_VN'
 
+import AntdProvider from 'src/components/providers/antd-provider'
 import { LayoutTheme, AppLocale } from 'src/common/interface/common'
 import { HistoryRouter, history } from 'src/components/routes/history'
+import { ErrorBoundary } from 'src/components/core'
 import { localeConfig } from 'src/locales'
-import useKrsStore from 'src/hooks/use-krs-store'
-
-import AntdProvider from './antd-provider'
-import ErrorBoundary from '../core/error-boundary'
+import { useKrsStore } from 'src/hooks'
 
 /* const StyledSpin = styled(Spin)`
   position: fixed;
@@ -74,9 +73,7 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
         locale={app_language.split('_')[0]}
         messages={localeConfig[app_language]}>
         <ErrorBoundary>
-          <HistoryRouter history={history}>
-            <Suspense fallback={null}>{children}</Suspense>
-          </HistoryRouter>
+          <HistoryRouter history={history}>{children}</HistoryRouter>
         </ErrorBoundary>
       </IntlProvider>
     </AntdProvider>
