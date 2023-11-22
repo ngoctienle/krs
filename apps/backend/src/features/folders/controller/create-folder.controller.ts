@@ -12,9 +12,6 @@ export class Create {
     const { name, parentID } = req.body
 
     try {
-      let url = name + '/'
-      if (parentID) {
-      }
       const folderObjectId: ObjectId = new ObjectId()
 
       const commentData: IFolderDocument = {
