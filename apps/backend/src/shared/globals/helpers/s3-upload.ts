@@ -1,6 +1,11 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3'
+import Logger from 'bunyan'
 
+import { environment } from '@root/environment'
 import setupStorage from '@root/setupStorage'
+
+
+const log: Logger = environment.createLogger('S3Upload')
 
 export function uploadFolderToS3(folderName: string): Promise<void> {
   const s3Client = setupStorage()
@@ -13,10 +18,10 @@ export function uploadFolderToS3(folderName: string): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     s3Client.send(command, (err, data) => {
       if (err) {
-        console.error('Error uploading file to S3:', err)
+        log.error(`Error during upload: ${err}`)
         reject(err)
       } else {
-        console.log('File uploaded successfully:', data)
+        log.info(`Successfully uploaded data to ${input.Bucket}/${input.Key}`)
         resolve()
       }
     })

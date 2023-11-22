@@ -1,40 +1,61 @@
 import { ObjectId } from 'mongodb'
 import { Request, Response } from 'express'
+import { joiValidation } from '@global/decorators/joi-validation.decorator'
 import HTTP_STATUS from 'http-status-codes'
 
 import { IFolderDocument } from '@foderFeature/interfaces/folder.interface'
+
 import { createFolderSchema } from '@foderFeature/schemes/folder'
-import { FoldersModel } from '../models/folder.schema'
+
 import { uploadFolderToS3 } from '@global/helpers/s3-upload'
 
+import { folderService } from '@global/services/db/folder.service'
+
+import { KRSResponse } from '@global/helpers/response'
+import { IBaseError } from '@global/helpers/response/types/response.type'
+
 export class Create {
+  @joiValidation(createFolderSchema)
   public async folder(req: Request, res: Response): Promise<void> {
     const { name, parentID } = req.body
 
     try {
       const folderObjectId: ObjectId = new ObjectId()
 
-      const commentData: IFolderDocument = {
+      const FolderData: IFolderDocument = {
         _id: folderObjectId,
-        name: 'New Folder',
+        name,
+        parentID : parentID ? new ObjectId(parentID) : null,
         createdAt: new Date(),
         updatedAt: new Date()
       } as IFolderDocument
 
-      const folder = new FoldersModel(commentData)
+      const folder :IFolderDocument = await folderService.createFolder(FolderData)
+      const folderSlug : string = await folderService.getSlugFolder(folder._id)
+      
+      if(!folderSlug) {
+        const Error : IBaseError = {
+          error_code: ['ERR_001'],
+          status_code: HTTP_STATUS.BAD_REQUEST,
+          message: 'Folder slug is empty.',
+        };
 
-      await uploadFolderToS3(commentData.name)
+        KRSResponse.error(req, res, Error, HTTP_STATUS.BAD_REQUEST)
+      }
+      
+      await uploadFolderToS3(folderSlug)
 
-      await folder.save()
-
-      res
-        .status(HTTP_STATUS.OK)
-        .json({ message: 'Folder created successfully' })
+      KRSResponse.success(req, res, folder, HTTP_STATUS.CREATED)
     } catch (error) {
-      console.error('Error creating folder:', error)
-      res
-        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-        .json({ error: 'Error creating folder' })
+      await folderService.deleteFolderById(req.body._id)
+
+      const Error : IBaseError = {
+        error_code: ['ERR_001'],
+        status_code: HTTP_STATUS.BAD_REQUEST,
+        message: 'Upload folder to S3 failed.',
+      };
+
+      KRSResponse.error(req, res, Error, HTTP_STATUS.BAD_REQUEST)
     }
   }
 }

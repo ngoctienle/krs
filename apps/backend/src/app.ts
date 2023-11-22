@@ -14,7 +14,7 @@ class KRSApplication {
   initialize(): void {
     this.loadConfig()
     dbConnect()
-    console.log('hello')
+
     const app: Express = express()
     const server: KRSServer = new KRSServer(app)
 
