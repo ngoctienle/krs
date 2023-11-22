@@ -48,14 +48,13 @@ export class Create {
 
       KRSResponse.success(req, res, folder, HTTP_STATUS.CREATED)
     } catch (error) {
-     
       const Error: IBaseError = {
         error_code: ['ERR_001'],
         status_code: HTTP_STATUS.BAD_REQUEST,
         message: 'Upload folder to S3 failed.'
       }
 
-      if(folder && folder._id){
+      if (folder && folder._id) {
         await folderService.deleteFolderById(folder._id)
       }
 
