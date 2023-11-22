@@ -18,6 +18,7 @@ export class Create {
   @joiValidation(createFolderSchema)
   public async folder(req: Request, res: Response): Promise<void> {
     const { name, parentID } = req.body
+    let folder: IFolderDocument | undefined
 
     try {
       const folderObjectId: ObjectId = new ObjectId()
@@ -30,8 +31,7 @@ export class Create {
         updatedAt: new Date()
       } as IFolderDocument
 
-      const folder: IFolderDocument =
-        await folderService.createFolder(FolderData)
+      folder = await folderService.createFolder(FolderData)
       const folderSlug: string = await folderService.getSlugFolder(folder._id)
 
       if (!folderSlug) {
@@ -48,12 +48,15 @@ export class Create {
 
       KRSResponse.success(req, res, folder, HTTP_STATUS.CREATED)
     } catch (error) {
-      await folderService.deleteFolderById(req.body._id)
-
+     
       const Error: IBaseError = {
         error_code: ['ERR_001'],
         status_code: HTTP_STATUS.BAD_REQUEST,
         message: 'Upload folder to S3 failed.'
+      }
+
+      if(folder && folder._id){
+        await folderService.deleteFolderById(folder._id)
       }
 
       KRSResponse.error(req, res, Error, HTTP_STATUS.BAD_REQUEST)
