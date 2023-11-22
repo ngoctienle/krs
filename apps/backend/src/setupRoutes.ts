@@ -1,6 +1,6 @@
 import { Application } from 'express'
 
-import { folderRoutes } from './features/folders/routes/commentRoutes'
+import { folderRoutes } from './features/folders/routes/folderRoutes'
 
 const BASE_PATH = '/api/v1'
 
