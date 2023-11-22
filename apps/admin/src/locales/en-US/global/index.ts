@@ -4,8 +4,8 @@ export const enUS_Global = {
   'global.tips.theme.lightTooltip': 'Switch to light theme',
   'global.language.en': 'English',
   'global.language.vi': 'Vietnamese',
-  'global.menu.permission': 'Permission',
-  'global.menu.routePermission': 'Route Permission',
+  'global.menu.settings': 'Settings',
+  'global.menu.setting_system': 'System Setting',
   'global.menu.notFound': '404',
   'global.menu.dashboard': 'Dashboard'
 }

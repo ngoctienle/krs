@@ -1,10 +1,14 @@
 /* eslint-disable no-constant-condition */
-import { type FC, Suspense } from 'react'
+import { type FC, Suspense, lazy } from 'react'
 import { type RouteObject, useRoutes, Navigate, Outlet } from 'react-router-dom'
 
 import { appRoutes } from 'src/common/config/settings'
 import { DashboardLayout, AuthLayout } from 'src/components/layouts'
 import WrapperRouteComponent from './config'
+
+const SystemPage = lazy(
+  () => import(/* webpackChunkName: "SystemPage"*/ 'src/views/settings/system')
+)
 
 function ProtectedRoute() {
   return true ? (
@@ -53,6 +57,15 @@ const routeList: RouteObject[] = [
           <WrapperRouteComponent
             element={<>HelloHome</>}
             titleId='documents.title.home'
+          />
+        )
+      },
+      {
+        path: appRoutes.systemSetting,
+        element: (
+          <WrapperRouteComponent
+            element={<SystemPage />}
+            titleId='documents.title.setting_system'
           />
         )
       },

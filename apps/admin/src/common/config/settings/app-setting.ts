@@ -1,4 +1,5 @@
 import { MenuList } from 'src/common/interface/common'
+import appRoutes from './app-routes'
 
 const appSetting = Object.freeze({
   roles: {},
@@ -8,18 +9,18 @@ const appSetting = Object.freeze({
       key: 'dashboard',
       label: 'global.menu.dashboard',
       icon: 'LayoutDashboard',
-      path: '/dashboard'
+      path: appRoutes.root
     },
     {
-      key: 'permission',
-      label: 'global.menu.permission',
+      key: 'settings',
+      label: 'global.menu.settings',
       icon: 'Setting',
-      path: '/dashboard/permission',
+      path: appRoutes.settings,
       children: [
         {
           key: 'routePermission',
-          label: 'global.menu.routePermission',
-          path: '/dashboard/permission/route'
+          label: 'global.menu.setting_system',
+          path: appRoutes.systemSetting
         },
         {
           key: 'notFound',
