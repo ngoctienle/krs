@@ -7,6 +7,7 @@ const log: Logger = environment.createLogger('setupDatabase')
 
 export default () => {
   const connect = () => {
+    console.log(environment.DATABASE_URL)
     mongoose
       .connect(`${environment.DATABASE_URL}`)
       .then(() => {
