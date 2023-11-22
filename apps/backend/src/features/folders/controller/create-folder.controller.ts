@@ -25,35 +25,36 @@ export class Create {
       const FolderData: IFolderDocument = {
         _id: folderObjectId,
         name,
-        parentID : parentID ? new ObjectId(parentID) : null,
+        parentID: parentID ? new ObjectId(parentID) : null,
         createdAt: new Date(),
         updatedAt: new Date()
       } as IFolderDocument
 
-      const folder :IFolderDocument = await folderService.createFolder(FolderData)
-      const folderSlug : string = await folderService.getSlugFolder(folder._id)
-      
-      if(!folderSlug) {
-        const Error : IBaseError = {
+      const folder: IFolderDocument =
+        await folderService.createFolder(FolderData)
+      const folderSlug: string = await folderService.getSlugFolder(folder._id)
+
+      if (!folderSlug) {
+        const Error: IBaseError = {
           error_code: ['ERR_001'],
           status_code: HTTP_STATUS.BAD_REQUEST,
-          message: 'Folder slug is empty.',
-        };
+          message: 'Folder slug is empty.'
+        }
 
         KRSResponse.error(req, res, Error, HTTP_STATUS.BAD_REQUEST)
       }
-      
+
       await uploadFolderToS3(folderSlug)
 
       KRSResponse.success(req, res, folder, HTTP_STATUS.CREATED)
     } catch (error) {
       await folderService.deleteFolderById(req.body._id)
 
-      const Error : IBaseError = {
+      const Error: IBaseError = {
         error_code: ['ERR_001'],
         status_code: HTTP_STATUS.BAD_REQUEST,
-        message: 'Upload folder to S3 failed.',
-      };
+        message: 'Upload folder to S3 failed.'
+      }
 
       KRSResponse.error(req, res, Error, HTTP_STATUS.BAD_REQUEST)
     }

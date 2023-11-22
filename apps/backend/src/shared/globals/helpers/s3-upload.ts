@@ -4,7 +4,6 @@ import Logger from 'bunyan'
 import { environment } from '@root/environment'
 import setupStorage from '@root/setupStorage'
 
-
 const log: Logger = environment.createLogger('S3Upload')
 
 export function uploadFolderToS3(folderName: string): Promise<void> {
