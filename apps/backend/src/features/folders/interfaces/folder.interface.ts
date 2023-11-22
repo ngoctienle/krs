@@ -8,4 +8,3 @@ export interface IFolderDocument extends Document {
   createdAt?: Date
   updatedAt?: Date
 }
-

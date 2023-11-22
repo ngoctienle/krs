@@ -13,7 +13,6 @@ class FolderRoutes {
   }
 
   public routes(): Router {
-   
     // this.router.get('/post/comments/:postId', authMiddleware.checkAuthentication, Get.prototype.comments)
     // this.router.get(
     //   '/post/commentsnames/:postId',

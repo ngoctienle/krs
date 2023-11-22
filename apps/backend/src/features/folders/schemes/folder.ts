@@ -6,7 +6,7 @@ const createFolderSchema: ObjectSchema = Joi.object().keys({
   }),
   parentID: Joi.string().optional().allow(null, ''),
   createdAt: Joi.date().optional().allow(null, ''),
-  updatedAt: Joi.date().optional().allow(null, ''),
+  updatedAt: Joi.date().optional().allow(null, '')
 })
 
 export { createFolderSchema }

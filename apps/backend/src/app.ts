@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import express, { type Express } from 'express'
 import Logger from 'bunyan'
 
@@ -12,10 +12,9 @@ const log: Logger = environment.createLogger('app')
 
 class KRSApplication {
   initialize(): void {
-
     this.loadConfig()
     dbConnect()
-    console.log("hello")
+    console.log('hello')
     const app: Express = express()
     const server: KRSServer = new KRSServer(app)
 
@@ -29,13 +28,13 @@ class KRSApplication {
   }
 
   private createdFodlerS3(): void {
-    const s3Client  = setupStorage()
+    const s3Client = setupStorage()
     const input = {
-      "Body": "",
-      "Bucket": "krs-storage",
-      "Key": "Folder2/"
-    };
-    const command = new PutObjectCommand(input);
+      Body: '',
+      Bucket: 'krs-storage',
+      Key: 'Folder2/'
+    }
+    const command = new PutObjectCommand(input)
     s3Client.send(command)
   }
 
