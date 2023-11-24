@@ -10,7 +10,8 @@
     ],
     "paths": {
       "@global/*": ["src/shared/globals/*"],
-      "@root/*": ["src/*"]
+      "@root/*": ["src/*"],
+      "@uploadsFeature/*": ["src/features/uploads/*"]
     }
   },
   "exclude": ["node_modules", "build"]
