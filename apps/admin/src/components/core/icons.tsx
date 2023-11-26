@@ -6,7 +6,8 @@ import {
   Settings,
   Sun,
   Moon,
-  Languages
+  Languages,
+  Minus
 } from 'lucide-react'
 
 const Icons = {
@@ -90,13 +91,6 @@ const Icons = {
       />
     </svg>
   ),
-  Indent: Indent,
-  Outdent: Outdent,
-  Sun: Sun,
-  Moon: Moon,
-  Setting: Settings,
-  LayoutDashboard: LayoutDashboard,
-  Languages: Languages,
   ENUS: (props: LucideProps) => (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -127,7 +121,15 @@ const Icons = {
         d='m256 157.279 22.663 69.747H352l-59.332 43.106 22.664 69.749L256 296.774l-59.332 43.107 22.664-69.749L160 227.026h73.337z'
       />
     </svg>
-  )
+  ),
+  Indent: Indent,
+  Outdent: Outdent,
+  Sun: Sun,
+  Moon: Moon,
+  Setting: Settings,
+  LayoutDashboard: LayoutDashboard,
+  Languages: Languages,
+  Minus: Minus
 }
 export type IconsType = keyof typeof Icons
 export default Icons

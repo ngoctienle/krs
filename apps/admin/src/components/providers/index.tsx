@@ -64,6 +64,12 @@ const KRSProviders: React.FC<IKRSProvidersProps> = ({ children }) => {
         token: {
           colorPrimary: '#13c2c2'
         },
+        components: {
+          Typography: {
+            titleMarginTop: 0,
+            titleMarginBottom: 0
+          }
+        },
         algorithm:
           theme === LayoutTheme.Dark
             ? antdTheme.darkAlgorithm
