@@ -1,7 +1,10 @@
 import mongoose, { model, Model, Schema } from 'mongoose'
+import HTTP_STATUS from 'http-status-codes'
 
 import { IFolderDocument } from '@uploadsFeature/interfaces/folder.interface'
 import { KRSResponse } from '@global/helpers/response'
+import { IBaseError } from '@global/helpers/response/types/response.type'
+import { EErrorUpload } from '../enums/error.upload'
 
 const folderSchema: Schema<IFolderDocument> = new Schema(
   {
@@ -30,7 +33,13 @@ folderSchema.pre('save', async function (next) {
   })
 
   if (existedFolder) {
-    /* KRSResponse.error() */
+    const error: IBaseError = {
+      error_code: [EErrorUpload.FOLDER_EXISTED],
+      status_code: 400,
+      message: 'Folder existed'
+    }
+
+    // KRSResponse.error(null , null, error, HTTP_STATUS.BAD_REQUEST)
   }
 
   next()
