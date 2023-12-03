@@ -1,0 +1,10 @@
+{
+  "extends": "@krs/tsconfig/react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "paths": {
+      "@module/*": ["src/*"]
+    }
+  }
+}
