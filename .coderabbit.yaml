@@ -1,0 +1,23 @@
+language: 'en'
+early_access: false
+reviews:
+  high_level_summary: false
+  poem: true
+  review_status: true
+  collapse_walkthrough: false
+  path_filters:
+    - '!**/.xml'
+  path_instructions:
+    - path: '**.ts'
+      instructions: 'Review the Typescript code for conformity with the Google JavaScript style guide, highlighting any deviations.'
+  auto_review:
+    enabled: true
+    ignore_title_keywords:
+      - 'WIP'
+      - 'DO NOT MERGE'
+    drafts: false
+    base_branches:
+      - 'sandbox'
+      - 'feat/*'
+chat:
+  auto_reply: false
