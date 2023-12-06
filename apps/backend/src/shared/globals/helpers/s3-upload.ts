@@ -1,7 +1,8 @@
 import {
   PutObjectCommand,
   CopyObjectCommand,
-  DeleteObjectCommand
+  DeleteObjectCommand,
+  HeadObjectCommand
 } from '@aws-sdk/client-s3'
 import { S3Client } from '@aws-sdk/client-s3'
 import Logger from 'bunyan'
@@ -22,13 +23,8 @@ class S3Upload {
     const uploadObject = {
       Body: '',
       Bucket: this.bucket,
-      Key: slug
+      Key: this.getKey(slug, type)
     }
-
-    if (type === EUploadType.FOLDER) {
-      uploadObject.Key = `${slug}/`
-    }
-    console.log('uploadObject', uploadObject)
 
     const uploadCommand = new PutObjectCommand(uploadObject)
     return new Promise<void>((resolve, reject) => {
@@ -55,13 +51,8 @@ class S3Upload {
   ): Promise<void> {
     const objectCoppy = {
       Bucket: this.bucket,
-      CopySource: `${this.bucket}/${slug}`,
-      Key: new_slug
-    }
-
-    if (type === EUploadType.FOLDER) {
-      ;(objectCoppy.CopySource = `${this.bucket}/${slug}/`),
-        (objectCoppy.Key = `${new_slug}/`)
+      CopySource: `${this.bucket}/${this.getKey(slug, type)}`,
+      Key: this.getKey(new_slug, type)
     }
 
     const coppyCommand = new CopyObjectCommand(objectCoppy)
@@ -87,9 +78,6 @@ class S3Upload {
     new_slug: string,
     type: string
   ): Promise<void> {
-    if (slug === new_slug) {
-      return
-    }
     this.copy(slug, new_slug, type)
     this.delete(slug, type)
   }
@@ -97,11 +85,7 @@ class S3Upload {
   public async delete(slug: string, type: string): Promise<void> {
     const objectDelete = {
       Bucket: this.bucket,
-      Key: slug
-    }
-
-    if (type === EUploadType.FOLDER) {
-      objectDelete.Key = `${slug}/`
+      Key: this.getKey(slug, type)
     }
 
     const deleteCommand = new DeleteObjectCommand(objectDelete)
@@ -109,6 +93,7 @@ class S3Upload {
       this.s3Client.send(deleteCommand, (err, data) => {
         if (err) {
           log.error(`Error during de: ${err}`)
+
           reject(err)
         } else {
           log.info(
@@ -119,6 +104,32 @@ class S3Upload {
         }
       })
     })
+  }
+
+  public async checkExist(slug: string, type: string): Promise<boolean> {
+    const objectExist = {
+      Bucket: this.bucket,
+      Key: this.getKey(slug, type)
+    }
+
+    const headCommand = new HeadObjectCommand(objectExist)
+    return new Promise<boolean>((resolve, reject) => {
+      this.s3Client.send(headCommand, (err, data) => {
+        if (err) {
+          resolve(false)
+        } else {
+          resolve(true)
+        }
+      })
+    })
+  }
+
+  protected getKey(slug: string, type: string): string {
+    if (type === EUploadType.FOLDER) {
+      return `${slug}/`
+    }
+
+    return slug
   }
 }
 

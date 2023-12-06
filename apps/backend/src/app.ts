@@ -38,22 +38,22 @@ class KRSApplication {
   private static handleExit(): void {
     process.on('uncaughtException', (error: Error) => {
       log.error(`There was an uncaught error: ${error}`)
-      KRSApplication.shutDownProperly(1)
+      // KRSApplication.shutDownProperly(1)
     })
 
     process.on('unhandleRejection', (reason: Error) => {
       log.error(`Unhandled rejection at promise: ${reason}`)
-      KRSApplication.shutDownProperly(2)
+      // KRSApplication.shutDownProperly(2)
     })
 
     process.on('SIGTERM', () => {
       log.error('Caught SIGTERM')
-      KRSApplication.shutDownProperly(2)
+      // KRSApplication.shutDownProperly(2)
     })
 
     process.on('SIGINT', () => {
       log.error('Caught SIGINT')
-      KRSApplication.shutDownProperly(2)
+      // KRSApplication.shutDownProperly(2)
     })
 
     process.on('exit', () => {

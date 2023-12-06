@@ -1,3 +1,4 @@
+import { Request, Response } from 'express'
 import mongoose, { model, Model, Schema } from 'mongoose'
 import HTTP_STATUS from 'http-status-codes'
 
@@ -26,23 +27,42 @@ const folderSchema: Schema<IFolderDocument> = new Schema(
 )
 
 folderSchema.pre('save', async function (next) {
-  const existedFolder = await FolderModel.findOne({
-    name: this.name,
-    parent_id: this.parent_id,
-    _id: { $ne: this._id }
-  })
+  try {
+    const existedFolder = await FolderModel.findOne({
+      name: this.name,
+      parent_id: this.parent_id,
+      _id: { $ne: this._id }
+    })
 
-  if (existedFolder) {
-    const error: IBaseError = {
-      error_code: [EErrorUpload.FOLDER_EXISTED],
-      status_code: 400,
-      message: 'Folder existed'
+    if (existedFolder) {
+      const error: IBaseError = {
+        error_code: [EErrorUpload.FOLDER_EXISTED],
+        status_code: HTTP_STATUS.BAD_REQUEST,
+        message: 'Folder existed'
+      } as IBaseError
+
+      throw error
     }
 
-    // KRSResponse.error(null , null, error, HTTP_STATUS.BAD_REQUEST)
-  }
+    if (this.parent_id) {
+      const parentFolder = await FolderModel.findOne({
+        _id: this.parent_id
+      })
+      if (!parentFolder) {
+        const error: IBaseError = {
+          error_code: [EErrorUpload.FOLDER_NOT_FOUND],
+          status_code: HTTP_STATUS.NOT_FOUND,
+          message: 'Parent folder not found'
+        } as IBaseError
 
-  next()
+        throw error
+      }
+    }
+
+    next()
+  } catch (error: any) {
+    next(error)
+  }
 })
 
 const FolderModel: Model<IFolderDocument> = model<IFolderDocument>(
