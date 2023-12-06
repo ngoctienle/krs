@@ -1,0 +1,23 @@
+name: 🦄 Feature Request
+description: Suggest an idea for a new feature or enhancement
+title: '[FEAT]: '
+labels: ['feature']
+assignees: ['ngoctienle']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to complete this feature!
+  - type: textarea
+    id: describe-feature
+    attributes:
+      label: What does this MR do and why?
+      description: What do you want to happen? What problem are you trying to solve?
+      placeholder: Describe the need for the feature.
+    validations:
+      required: true
+  - type: textarea
+    id: resources
+    attributes:
+      label: The resources that you have researched
+      description: To solve this problem, what's resources we need to access?

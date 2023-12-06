@@ -1,0 +1,17 @@
+name: Refactor
+description: Refactoring code
+title: '[Refactor]: '
+labels: ['refactor']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill this out!
+  - type: textarea
+    id: describe-need
+    attributes:
+      label: Describe the need
+      description: What do you want to happen?
+      placeholder: Describe the Refactor need here.
+    validations:
+      required: true

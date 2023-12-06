@@ -9,5 +9,4 @@ const ImageModel: Model<IImageDocument> = model<IImageDocument>(
   imageSchema,
   'Image'
 )
-
 export default ImageModel
