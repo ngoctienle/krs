@@ -28,5 +28,8 @@
     "@commitlint/config-conventional": "^18.1.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0"
+  },
+  "resolutions": {
+    "styled-components": "^6.1.0"
   }
 }
